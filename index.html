@@ -136,7 +136,7 @@
    ========================================== */
 #loading {
     justify-content: center !important;
-    background: #d4eaf7;
+    
 }
 
 .loading-card {
@@ -214,22 +214,41 @@
         #password {
             justify-content: center !important;
         }
+        /* Kotak pembungkus halaman password agar tidak polos */
+        .password-card {
+            background: rgba(255, 255, 255, 0.95); /* Putih semi-transparan */
+            backdrop-filter: blur(10px); /* Efek blur kaca */
+            padding: 40px 30px; /* Ruang di dalam kotak */
+            border-radius: 35px; /* Sudut membulat */
+            border: 1px solid rgba(255, 255, 255, 0.8); /* Border tipis */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* Bayangan lembut */
+            width: 85%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
         .lock {
             background: white; width: 90px; height: 90px; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             font-size: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         #password h1 { font-family: 'Montserrat', sans-serif; font-size: 28px; color: #2c445e; }
-        #password p { font-size: 14px; color: #3d566f; padding: 0 10px; margin-bottom: 15px; }
+        #password p { font-size: 14px; color: #3d566f; padding: 0px; margin-bottom: 20px; }
         
-        .password-input-box { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .password-input-box { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
         #pass {
             width: 85%; padding: 14px 20px; border: none; border-radius: 25px;
             font-size: 15px; text-align: center; outline: none;
             box-shadow: 0 8px 20px rgba(0,0,0,0.06); background: white;
         }
-        #password button { background: #4a90e2; }
+        #password button {
+            background: #4a90e2;
+            width: 100%; /* Tombol memenuhi lebar kartu */
+            margin-top: 10px;
+        }
         #pesan { font-size: 13px; font-weight: 500; color: #3a7bd5; margin-top: 5px; min-height: 20px; }
 
         /* ==========================================
@@ -532,16 +551,23 @@
 </div>
 
     <!-- SCREEN 2: PASSWORD -->
+    <!-- SCREEN 2: PASSWORD (DIUPDATE DENGAN KARTU) -->
     <div class="screen" id="password">
         <div class="content-body">
-            <div class="lock">🔐</div>
-            <h1>ini rahasia cill</h1>
-            <p>masukin passwordnya dulu yaa cill xD</p>
-            <div class="password-input-box">
-                <input type="password" id="pass" placeholder="password">
-                <button onclick="cekPassword()">buka ♡</button>
+            
+            <!-- TAMBAHKAN KARTU PEMBUNGKUS DISINI -->
+            <div class="password-card">
+                <div class="lock">🔐</div>
+                <h1>ini rahasia cill</h1>
+                <p>masukin passwordnya dulu yaa cill xD</p>
+                <div class="password-input-box">
+                    <input type="password" id="pass" placeholder="password">
+                    <button onclick="cekPassword()">buka ♡</button>
+                </div>
+                <p id="pesan"></p>
             </div>
-            <p id="pesan"></p>
+            <!-- AKHIR KARTU PEMBUNGKUS -->
+
         </div>
     </div>
 
