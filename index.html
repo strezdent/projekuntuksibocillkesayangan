@@ -49,32 +49,33 @@
     }
 
         /* Pola Dasar Semua Halaman */
-        .screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none; 
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-            padding: 25px 20px;
-            opacity: 0;
-            /* Transisi pudar halaman, tanpa efek skala besar-kecil */
-            transition: opacity 0.8s ease-in-out;
-            background: transparent; 
-            
-            /* FITUR ANTI-TERPOTONG: Mengizinkan scroll internal jika layar HP terlalu pendek */
-            overflow-y: auto; 
-            scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
-            height: 100dvh;
-            padding-bottom: 60px; /* Memberi ruang agar tombol tidak menempel ke bawah */
-        }
-        .screen::-webkit-scrollbar {
-            display: none; /* Sembunyikan scrollbar di Chrome/Safari/Edge */
-        }
+       .screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        /* Ganti 100dvh dengan 100% agar mengikuti ukuran .phone-wrapper */
+        height: 100%; 
+        display: none; 
+        flex-direction: column;
+        justify-content: center; /* Gunakan center agar konten selalu di tengah */
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+        background: transparent; 
+        
+        /* Anti-terpotong */
+        overflow-y: auto; 
+        scrollbar-width: none;
+        box-sizing: border-box; /* WAJIB ADA agar padding tidak menambah tinggi */
+    }
+    
+    /* Sembunyikan scrollbar */
+    .screen::-webkit-scrollbar {
+        display: none;
+    }
 
         .screen.show {
             display: flex !important;
