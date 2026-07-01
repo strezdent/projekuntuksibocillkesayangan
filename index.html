@@ -75,11 +75,23 @@
         transition: opacity 0.8s ease-in-out;
         background: transparent;
         
+        
         /* Anti-terpotong */
         overflow-y: auto; 
         scrollbar-width: none;
         box-sizing: border-box; /* WAJIB ADA agar padding tidak menambah tinggi */
+        animation: slideInUp 0.5s ease-out forwards;
     }
+        @keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
     
     /* Sembunyikan scrollbar */
     .screen::-webkit-scrollbar {
@@ -120,10 +132,17 @@
             box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
             transition: background 0.2s;
             background: #5ba4e5; /* Biru muda cerah estetik */
+            transition: all 0.3s ease;
         }
-        button:active {
-            opacity: 0.9;
-        }
+        button:hover {
+    transform: translateY(-3px); /* Tombol sedikit naik saat kursor di atasnya */
+    box-shadow: 0 7px 20px rgba(74, 144, 226, 0.4);
+}
+       button:active {
+    transform: translateY(1px); /* Tombol sedikit turun saat diklik */
+    box-shadow: 0 2px 10px rgba(74, 144, 226, 0.3);
+    background: #4a90e2; /* Sedikit lebih gelap saat diklik */
+}
 
         /* ==========================================
            2. TAMPILAN LOADING (BIRU)
@@ -438,7 +457,13 @@
         .text-momen2 { text-align: left; width: 100%; background: rgba(255,255,255,0.75); padding: 12px; border-radius: 12px; }
         .text-momen2 h2 { font-size: 1.25rem; color: #2c445e; margin-bottom: 5px; }
         .text-momen2 p { font-size: 0.85rem; color: #4a6580; line-height: 1.5; }
+        animation: pulseSoft 0.5s ease-out;
         #page5 button { background: #568ecb; }
+        @keyframes pulseSoft {
+    0% { transform: scale(0.95); opacity: 0; }
+    70% { transform: scale(1.02); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
 
         /* ==========================================
            9. HALAMAN 6: VIDEO SPESIAL
@@ -449,6 +474,7 @@
         .text-video { text-align: left; width: 100%; background: rgba(255,255,255,0.75); padding: 12px; border-radius: 12px; }
         .text-video h2 { font-size: 1.25rem; color: #2c445e; margin-bottom: 6px; }
         .text-video p { font-size: 0.85rem; color: #4a6580; line-height: 1.5; }
+        
         #page6 button { background: #4a90e2; }
 
         /* --- KEYFRAMES ANIMASI UTILITY --- */
@@ -526,6 +552,19 @@
 .polaroid-slideshow img {
     display: block;
     width: 100%;
+}
+
+        @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.password-card.error {
+    animation: shake 0.3s ease-in-out;
+    border-color: #ff7675; /* Ganti warna border jadi merah saat error */
 }
     </style>
 </head>
@@ -736,18 +775,27 @@
     function cekPassword() {
         let pass = document.getElementById("pass").value;
         let pesan = document.getElementById("pesan");
+        let card = document.querySelector('.password-card'); // Ambil elemen cardnya
 
         if (pass == "ayangg kecutt") {
             pesan.innerHTML = "✨ Yayyy ayangg betull ♡ ✨";
+            pesan.style.color = "#4a90e2"; // Warna sukses
+            card.style.borderColor = "#b2d3f0"; // Reset border jika sebelumnya error
             setTimeout(() => {
                 gantiMulus("password", "home");
             }, 1500);
         } else {
             salah++;
+            // Tambahkan animasi shake
+            card.classList.add('error');
+            // Hapus class error setelah animasi selesai agar bisa diulang
+            setTimeout(() => { card.classList.remove('error'); }, 300);
+
             if (salah == 1) { pesan.innerHTML = "salah ihh"; } 
             else if (salah == 2) { pesan.innerHTML = "salah lagi cill TT"; } 
             else if (salah == 3) { pesan.innerHTML = "ihh kok salah muluu TT"; } 
             else { pesan.innerHTML = "ulang sampe betull yaa U^U"; }
+            pesan.style.color = "#ff7675"; // Warna error
         }
     }
 
