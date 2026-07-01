@@ -406,6 +406,33 @@
         color: #ff7675;
         border: 2px solid #ff7675;
     }
+
+        /* Memberi jarak dan mempercantik tampilan foto di halaman cerita/momen */
+.screenshot-box, 
+.polaroid-wrapper, 
+.momen-fav-container {
+    margin-bottom: 25px; /* Memberi jarak antara foto dan kotak pesan di bawahnya */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Efek bayangan biar lebih menonjol */
+    transition: transform 0.3s ease;
+}
+
+/* Sedikit efek hover atau pembungkus agar lebih rapi */
+.text-story, 
+.text-momen1, 
+.text-momen2 {
+    margin-top: 10px;
+    border-top: 2px solid rgba(212, 237, 244, 0.5); /* Garis pemisah halus */
+    padding-top: 15px !important;
+}
+
+/* Memastikan gambar di dalam box tidak menempel ke pinggir */
+.screenshot-box img, 
+.polaroid-slideshow img {
+    display: block;
+    width: 100%;
+}
     </style>
 </head>
 <body>
