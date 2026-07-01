@@ -361,34 +361,33 @@
         #game-container {
         position: relative; 
         width: 100%;
-        min-height: 250px; /* Diberi tinggi minimal agar tidak bergeser */
+        height: 220px; /* Diperbesar agar area gerak lebih luas */
         display: flex;
-        flex-direction: column; /* Tombol akan tersusun ke bawah */
+        flex-direction: column; /* Mengatur tombol agar menumpuk vertikal */
         justify-content: center;
         align-items: center;
-        gap: 15px; /* Jarak antar tombol */
-        margin-top: 20px;
+        gap: 20px;
     }
 
-        #btnYes, #btnNo {
-        position: relative; /* Ganti dari absolute ke relative */
+    #btnYes, #btnNo {
+        position: absolute; /* Tetap absolute agar bisa dipindah-pindah */
         transition: all 0.3s ease;
         padding: 12px 30px;
         border-radius: 20px;
         font-weight: 600;
         cursor: pointer;
         border: none;
-        width: 80%; /* Tombol punya lebar tetap */
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         z-index: 10;
     }
 
     /* Posisi awal statis sebelum mulai bergerak */
-        #btnYes {
-            top: 30px; /* Di atas */
-        }
-    
-        #btnNo {
+    #btnYes {
+        top: 30px; /* Di atas */
+    }
+
+    #btnNo {
+        top: 100px; /* Di bawah */
         background: #ffffff;
         color: #ff7675;
         border: 2px solid #ff7675;
@@ -680,6 +679,7 @@
     btnNo.style.left = newX + 'px';
     btnNo.style.top = newY + 'px';
 }
+
 function tampilkanPesan() {
     // Tampilkan card pesan
     document.getElementById('pesanKecut').style.display = 'block';
