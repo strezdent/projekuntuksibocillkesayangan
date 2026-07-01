@@ -34,7 +34,7 @@
         .phone-wrapper {
             width: 100%;
             max-width: 412px;
-            height: 100vh;
+            height: 100dvh;
             max-height: 850px;
             position: relative;
             overflow: hidden;
@@ -42,7 +42,10 @@
             
             /* Gradasi warna dominan biru muda pastel lembut */
             background: linear-gradient(rgba(212, 237, 244, 0.6), rgba(178, 211, 240, 0.6)), 
-                        url('nama-fotomu.jpg') center/cover no-repeat;
+                url('nama-fotomu.jpg');
+            background-size: cover;      /* Memastikan gambar menutup seluruh area */
+            background-position: center; /* Menjaga fokus di tengah */
+            background-repeat: no-repeat;
         }
 
         /* Pola Dasar Semua Halaman */
@@ -66,6 +69,8 @@
             /* FITUR ANTI-TERPOTONG: Mengizinkan scroll internal jika layar HP terlalu pendek */
             overflow-y: auto; 
             scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+            height: 100dvh;
+            padding-bottom: 60px; /* Memberi ruang agar tombol tidak menempel ke bawah */
         }
         .screen::-webkit-scrollbar {
             display: none; /* Sembunyikan scrollbar di Chrome/Safari/Edge */
@@ -78,14 +83,16 @@
 
         /* Pembungkus Konten Atas agar flex tetap rapi dan tidak merusak layout */
         .content-body {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: auto;
-            margin-bottom: auto;
-            gap: 15px;
-        }
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Pastikan konten vertikal selalu di tengah */
+        flex: 1; /* PENTING: Membuat konten fleksibel di dalam screen */
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto; /* Memungkinkan scroll jika konten sangat panjang */
+    }
 
         /* Button Gaya Biru Muda Cantik */
         button {
