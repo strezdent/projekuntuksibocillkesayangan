@@ -32,21 +32,21 @@
 
         /* --- CONTAINER UTAMA HP (TEMA BIRU MUDA GRADASI) --- */
         .phone-wrapper {
-            width: 100%;
-            max-width: 412px;
-            height: 100dvh;
-            max-height: 850px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            
-            /* Gradasi warna dominan biru muda pastel lembut */
-            background: linear-gradient(rgba(212, 237, 244, 0.6), rgba(178, 211, 240, 0.6)), 
-                url('nama-fotomu.jpg');
-            background-size: cover;      /* Memastikan gambar menutup seluruh area */
-            background-position: center; /* Menjaga fokus di tengah */
-            background-repeat: no-repeat;
-        }
+        width: 100%;
+        max-width: 412px;
+        height: 100dvh; /* Menggunakan Dynamic Viewport agar pas */
+        position: relative;
+        overflow: hidden; 
+        
+        /* PENGATURAN BACKGROUND BIAR TIDAK TURUN */
+        background: linear-gradient(rgba(212, 237, 244, 0.6), rgba(178, 211, 240, 0.6)), 
+                    url('nama-fotomu.jpg');
+        background-size: cover;      
+        background-position: center center; 
+        background-repeat: no-repeat;
+        /* JANGAN pakai background-attachment: fixed */
+        background-attachment: scroll; 
+    }
 
         /* Pola Dasar Semua Halaman */
         .screen {
