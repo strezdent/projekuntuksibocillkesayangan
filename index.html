@@ -208,15 +208,29 @@
            5. HALAMAN 2: SURAT ULANG TAHUN
            ========================================== */
         .envelope-card {
-            background: rgba(255, 255, 255, 0.92); 
-            width: 100%; 
-            border-radius: 16px; 
-            padding: 24px 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            border: 1px dashed #b2d3f0;
-            text-align: left;
+        background: rgba(255, 255, 255, 0.92); 
+        width: 90%; /* Dikecilkan sedikit agar tidak terlalu mepet ke pinggir layar */
+        border-radius: 16px; 
+        padding: 30px 20px; /* Tambahkan padding atas agar teks tidak menempel ke batas */
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+        border: 1px dashed #b2d3f0;
+        text-align: left;
+        margin-top: 20px; /* Memberi jarak dari bagian atas layar */
+        margin-bottom: 20px; /* Memberi jarak dari tombol di bawahnya */
+    }
+    
+    .envelope-card h2 { 
+        font-size: 1.3rem; 
+        color: #2c445e; 
+        margin-bottom: 14px; 
+        text-align: center;
+        margin-top: 0; /* Pastikan tidak ada margin atas tambahan pada h2 */
+    }
+        /* Perbaikan agar teks surat tidak terpotong di atas */
+        #page2 .content-body {
+            justify-content: flex-start; 
+            padding-top: 40px; 
         }
-        .envelope-card h2 { font-size: 1.3rem; color: #2c445e; margin-bottom: 14px; text-align: center; }
         .envelope-card p { font-size: 0.85rem; color: #3d566f; line-height: 1.6; margin-bottom: 12px; text-align: justify; }
         #page2 button { background: #568ecb; }
 
