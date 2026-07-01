@@ -658,17 +658,25 @@
     const btnNo = document.getElementById('btnNo');
     const container = document.getElementById('game-container');
     
-    // Ubah sementara ke absolute hanya saat tombol bergerak
-    btnNo.style.position = 'absolute'; 
-    
+    // Ambil ukuran kontainer
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
+    
+    // Ambil ukuran tombol itu sendiri agar tidak keluar batas
     const btnWidth = btnNo.offsetWidth;
     const btnHeight = btnNo.offsetHeight;
     
+    // Hitung posisi acak dengan batasan agar tidak keluar area
+    // Kita kurangi container dengan ukuran tombol
     let newX = Math.random() * (containerWidth - btnWidth);
     let newY = Math.random() * (containerHeight - btnHeight);
     
+    // Pastikan nilai tidak negatif
+    newX = Math.max(0, newX);
+    newY = Math.max(0, newY);
+
+    // Terapkan posisi baru
+    btnNo.style.position = 'absolute';
     btnNo.style.left = newX + 'px';
     btnNo.style.top = newY + 'px';
 }
