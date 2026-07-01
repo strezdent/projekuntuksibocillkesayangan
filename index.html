@@ -31,23 +31,31 @@
     }
 
         /* --- CONTAINER UTAMA HP (TEMA BIRU MUDA GRADASI) --- */
-        .phone-wrapper {
-        width: 100%;
-        max-width: 412px;
-        height: 100dvh; /* Menggunakan Dynamic Viewport agar pas */
-        position: relative;
-        overflow: hidden; 
-        
-        /* PENGATURAN BACKGROUND BIAR TIDAK TURUN */
-        background-color: #d4eaf7;
-        background-size: cover;      
-        background-position: center center; 
-        background-repeat: no-repeat;
-        background-image: radial-gradient(#b2d3f0 1.5px, transparent 1.5px);
-        background-size: 25px 25px; /* Jarak antar titik */
-        /* JANGAN pakai background-attachment: fixed */
-        background-attachment: scroll; 
-    }
+        /* --- CONTAINER UTAMA HP (TEMA BIRU MUDA DENGAN TEKSTUR) --- */
+.phone-wrapper {
+    width: 100%;
+    max-width: 412px;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden; 
+    
+    /* Warna dasar biru muda lembut */
+    background-color: #d4eaf7;
+    
+    /* Menambahkan pola titik-titik halus (dot pattern) */
+    /* Warna titik adalah biru muda yang sedikit lebih tua (#b2d3f0) agar samar */
+    background-image: radial-gradient(#b2d3f0 1.5px, transparent 1.5px);
+    
+    /* Ukuran pola: titik setiap 25px, membuatnya tidak terlalu rapat */
+    background-size: 25px 25px;
+    
+    /* Pengaturan posisi agar rapi */
+    background-position: center center; 
+    background-repeat: repeat; /* Pastikan pola mengulang ke seluruh layar */
+    
+    /* Pengaturan scroll */
+    background-attachment: scroll; 
+}
 
         /* Pola Dasar Semua Halaman */
        .screen {
@@ -65,7 +73,6 @@
         padding: 20px;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
-        background-color: #d4eaf7;
         background: transparent;
         
         /* Anti-terpotong */
