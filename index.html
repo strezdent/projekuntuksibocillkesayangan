@@ -119,45 +119,56 @@
         /* ==========================================
            2. TAMPILAN LOADING (BIRU)
            ========================================== */
-        #loading {
-            justify-content: center !important;
-            background: linear-gradient(135deg, #e0f7fa, #b3e5fc); /* Gradasi lembut */
-        }
-        
-        /* Animasi Ikon Love */
-        .love { 
-            font-size: 80px; 
-            animation: heartBeat 1.5s infinite;
-        }
-        
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.2); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
-        }
-        
-        /* Membuat bar loading lebih futuristik */
-        .bar { 
-            width: 80%; 
-            max-width: 280px; 
-            height: 15px; 
-            background: rgba(255,255,255,0.5); 
-            border-radius: 20px; 
-            margin-top: 25px; 
-            overflow: hidden; 
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .progress { 
-            height: 100%; 
-            width: 0%; 
-            background: linear-gradient(90deg, #4a90e2, #67b26f); /* Warna gradasi */
-            transition: .1s; 
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
-        }
+       /* ==========================================
+    2. TAMPILAN LOADING (BARU & MENARIK)
+    ========================================== */
+#loading {
+    justify-content: center !important;
+    background: radial-gradient(circle at center, #f0f9ff 0%, #d1e9f6 100%);
+}
+
+.loading-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px); /* Efek kaca */
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Animasi titik-titik lucu */
+.dot-container { display: flex; gap: 5px; margin-bottom: 10px; }
+.dot { width: 8px; height: 8px; background: #5ba4e5; border-radius: 50%; animation: pulse 1s infinite; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.5); opacity: 1; } }
+
+/* Animasi Hati */
+.love { font-size: 80px; animation: heartBeat 1.5s infinite; }
+@keyframes heartBeat { 0%, 100% { transform: scale(1); } 15%, 45% { transform: scale(1.2); } }
+
+/* Bar loading yang lebih rapi */
+.bar { 
+    width: 100%; 
+    height: 12px; 
+    background: rgba(255,255,255,0.5); 
+    border-radius: 20px; 
+    margin-top: 20px; 
+    overflow: hidden; 
+}
+.progress { 
+    height: 100%; 
+    width: 0%; 
+    background: linear-gradient(90deg, #4a90e2, #67b26f); 
+    transition: .1s; 
+}
         #persen { font-weight: bold; margin-top: 5px; }
 
         /* ==========================================
@@ -471,15 +482,17 @@
 
     <!-- SCREEN 1: LOADING -->
     <div class="screen show" id="loading">
-        <div class="content-body">
-            <div class="hearts">♡ ♡ ♡</div>
-            <div class="love">💙</div>
-            <h1>sebentar yaa ayangg...</h1>
-            <p id="loadText">aku lagi nyiapin sesuatu buat ayangg ♡</p>
-            <div class="bar"><div class="progress" id="progress"></div></div>
-            <p id="persen">0%</p>
+    <div class="loading-card"> <div class="dot-container">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
         </div>
+        <div class="hearts">♡ ♡ ♡</div>
+        <div class="love">💙</div>
+        <h1>sebentar yaa ayangg...</h1>
+        <p id="loadText">aku lagi nyiapin sesuatu buat ayangg ♡</p>
+        <div class="bar"><div class="progress" id="progress"></div></div>
+        <p id="persen">0%</p>
     </div>
+</div>
 
     <!-- SCREEN 2: PASSWORD -->
     <div class="screen" id="password">
