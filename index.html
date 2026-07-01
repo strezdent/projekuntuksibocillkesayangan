@@ -122,48 +122,68 @@
        /* ==========================================
     2. TAMPILAN LOADING (BARU & MENARIK)
     ========================================== */
+/* ==========================================
+   2. TAMPILAN LOADING (DIREVISI)
+   ========================================== */
 #loading {
     justify-content: center !important;
-    background: radial-gradient(circle at center, #f0f9ff 0%, #d1e9f6 100%);
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
 }
 
 .loading-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(15px); /* Efek kaca */
-    -webkit-backdrop-filter: blur(15px);
-    padding: 40px 20px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 320px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    padding: 40px 25px; /* Memberi ruang lebih di dalam */
+    border-radius: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    width: 85%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 15px; /* Mencegah elemen terlihat dempet */
 }
 
-/* Animasi titik-titik lucu */
+/* Mengatur agar teks tidak menumpuk */
+.loading-card h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: #2c445e;
+    margin: 5px 0;
+}
 
+.loading-card p {
+    font-size: 13px;
+    color: #5c7b99;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
 
-/* Animasi Hati */
-.love { font-size: 80px; animation: heartBeat 1.5s infinite; }
-@keyframes heartBeat { 0%, 100% { transform: scale(1); } 15%, 45% { transform: scale(1.2); } }
-
-/* Bar loading yang lebih rapi */
+/* Bar loading lebih elegan */
 .bar { 
     width: 100%; 
-    height: 12px; 
-    background: rgba(255,255,255,0.5); 
-    border-radius: 20px; 
-    margin-top: 20px; 
+    height: 8px; 
+    background: #e0e0e0; 
+    border-radius: 10px; 
+    margin-top: 15px; 
     overflow: hidden; 
 }
 .progress { 
     height: 100%; 
     width: 0%; 
-    background: linear-gradient(90deg, #4a90e2, #67b26f); 
+    background: linear-gradient(90deg, #4facfe, #00f2fe); 
+    border-radius: 10px;
     transition: .1s; 
+}
+
+#persen { 
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; 
+    font-size: 14px;
+    color: #4a90e2;
+    margin-top: 8px; 
 }
         #persen { font-weight: bold; margin-top: 5px; }
 
