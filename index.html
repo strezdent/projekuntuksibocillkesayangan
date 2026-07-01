@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For bocill ♡</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================
+           1. RESET & UTILITIES
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a2332; /* Background luar HP */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- CONTAINER UTAMA HP (TEMA BIRU MUDA GRADASI) --- */
+        .phone-wrapper {
+            width: 100%;
+            max-width: 412px;
+            height: 100vh;
+            max-height: 850px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            
+            /* Gradasi warna dominan biru muda pastel lembut */
+            background: linear-gradient(rgba(212, 237, 244, 0.6), rgba(178, 211, 240, 0.6)), 
+                        url('nama-fotomu.jpg') center/cover no-repeat;
+        }
+
+        /* Pola Dasar Semua Halaman */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; 
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 25px 20px;
+            opacity: 0;
+            /* Transisi pudar halaman, tanpa efek skala besar-kecil */
+            transition: opacity 0.8s ease-in-out;
+            background: transparent; 
+            
+            /* FITUR ANTI-TERPOTONG: Mengizinkan scroll internal jika layar HP terlalu pendek */
+            overflow-y: auto; 
+            scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+        }
+        .screen::-webkit-scrollbar {
+            display: none; /* Sembunyikan scrollbar di Chrome/Safari/Edge */
+        }
+
+        .screen.show {
+            display: flex !important;
+            opacity: 1;
+        }
+
+        /* Pembungkus Konten Atas agar flex tetap rapi dan tidak merusak layout */
+        .content-body {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            gap: 15px;
+        }
+
+        /* Button Gaya Biru Muda Cantik */
+        button {
+            border: none;
+            padding: 14px 35px;
+            border-radius: 30px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            width: 85%;
+            flex-shrink: 0; /* Mencegah tombol gepeng saat scroll aktif */
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+            transition: background 0.2s;
+            background: #5ba4e5; /* Biru muda cerah estetik */
+        }
+        button:active {
+            opacity: 0.9;
+        }
+
+        /* ==========================================
+           2. TAMPILAN LOADING (BIRU)
+           ========================================== */
+        #loading {
+            justify-content: center !important;
+            color: #2c445e;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+        .love { font-size: 80px; opacity: 0.9; }
+        .hearts { font-size: 30px; animation: melayang 3s infinite; color: #5ba4e5; }
+        #loading h1 { font-family: 'Montserrat', sans-serif; font-size: 26px; margin-top: 15px; }
+        #loading p { margin-top: 8px; font-size: 14px; }
+        
+        .bar { width: 80%; max-width: 280px; height: 12px; background: rgba(255,255,255,0.7); border-radius: 30px; margin-top: 25px; overflow: hidden; }
+        .progress { height: 100%; width: 0%; background: #5ba4e5; transition: .1s; }
+        #persen { font-weight: bold; margin-top: 5px; }
+
+        /* ==========================================
+           3. TAMPILAN PASSWORD
+           ========================================== */
+        #password {
+            justify-content: center !important;
+        }
+        .lock {
+            background: white; width: 90px; height: 90px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 45px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+        }
+        #password h1 { font-family: 'Montserrat', sans-serif; font-size: 28px; color: #2c445e; }
+        #password p { font-size: 14px; color: #3d566f; padding: 0 10px; margin-bottom: 15px; }
+        
+        .password-input-box { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        #pass {
+            width: 85%; padding: 14px 20px; border: none; border-radius: 25px;
+            font-size: 15px; text-align: center; outline: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); background: white;
+        }
+        #password button { background: #4a90e2; }
+        #pesan { font-size: 13px; font-weight: 500; color: #3a7bd5; margin-top: 5px; min-height: 20px; }
+
+        /* ==========================================
+           4. HALAMAN 1: HOME (GIF USER + KARTU BIRU MUDA)
+           ========================================== */
+        .home-card {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            width: 100%;
+            padding: 25px 20px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .home-gif {
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .home-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .home-text h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            color: #2c445e;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .home-text p {
+            font-size: 14px;
+            color: #3d566f;
+            line-height: 1.6;
+        }
+        #home button {
+            background: #4a90e2;
+            width: 90%;
+        }
+
+        /* ==========================================
+           5. HALAMAN 2: SURAT ULANG TAHUN
+           ========================================== */
+        .envelope-card {
+            background: rgba(255, 255, 255, 0.92); 
+            width: 100%; 
+            border-radius: 16px; 
+            padding: 24px 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            border: 1px dashed #b2d3f0;
+            text-align: left;
+        }
+        .envelope-card h2 { font-size: 1.3rem; color: #2c445e; margin-bottom: 14px; text-align: center; }
+        .envelope-card p { font-size: 0.85rem; color: #3d566f; line-height: 1.6; margin-bottom: 12px; text-align: justify; }
+        #page2 button { background: #568ecb; }
+
+        /* ==========================================
+           6. HALAMAN 3: AWAL CERITA KITA
+           ========================================== */
+        .screenshot-box {
+            background: white;
+            width: 100%;
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+        .screenshot-box img {
+            width: 100%;
+            height: auto;
+            max-height: 320px; 
+            object-fit: contain; 
+            border-radius: 10px;
+        }
+        
+        .text-story { text-align: left; width: 100%; background: rgba(255,255,255,0.75); padding: 12px; border-radius: 12px; }
+        .text-story h2 { font-size: 1.25rem; color: #2c445e; margin-bottom: 6px; }
+        .text-story p { font-size: 0.85rem; color: #4a6580; line-height: 1.5; }
+        #page3 button { background: #4a90e2; }
+
+        /* ==========================================
+           7. HALAMAN 4: POLAROID LANDSCAPE (MURNI FADE)
+           ========================================== */
+        .polaroid-wrapper {
+            background: white; 
+            padding: 12px 12px 35px 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%; 
+            border-radius: 4px;
+        }
+        .polaroid-slideshow {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            aspect-ratio: 16/9; 
+            width: 100%;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .polaroid-slideshow img { 
+            grid-area: 1 / 1 / 2 / 2; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            opacity: 0;
+            transition: opacity 1s ease-in-out; 
+        }
+        .polaroid-slideshow img.active {
+            opacity: 1;
+        }
+        
+        .text-momen1 { text-align: left; width: 100%; background: rgba(255,255,255,0.75); padding: 12px; border-radius: 12px; }
+        .text-momen1 h2 { font-size: 1.25rem; color: #2c445e; margin-bottom: 6px; }
+        .text-momen1 p { font-size: 0.85rem; color: #4a6580; line-height: 1.5; text-align: justify; }
+        #page4 button { background: #5ba4e5; }
+
+        /* ==========================================
+           8. HALAMAN 5: MOMEN KITA 2 (2 POTRET + 1 LANDSCAPE)
+           ========================================== */
+        .momen-fav-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+        .grid-potret {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+        .polaroid-portrait {
+            background: white;
+            padding: 8px 8px 24px 8px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            border-radius: 3px;
+            font-size: 0.7rem;
+            color: #4a6580;
+        }
+        .polaroid-portrait img {
+            width: 100%;
+            aspect-ratio: 3/4; 
+            object-fit: cover;
+            border-radius: 2px;
+            margin-bottom: 4px;
+        }
+        .polaroid-landscape-single {
+            background: white;
+            padding: 10px 10px 28px 10px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            border-radius: 3px;
+            font-size: 0.75rem;
+            color: #4a6580;
+            width: 100%;
+        }
+        .polaroid-landscape-single img {
+            width: 100%;
+            aspect-ratio: 16/9; 
+            object-fit: cover;
+            border-radius: 2px;
+            margin-bottom: 6px;
+        }
+        
+        .text-momen2 { text-align: left; width: 100%; background: rgba(255,255,255,0.75); padding: 12px; border-radius: 12px; }
+        .text-momen2 h2 { font-size: 1.25rem; color: #2c445e; margin-bottom: 5px; }
+        .text-momen2 p { font-size: 0.85rem; color: #4a6580; line-height: 1.5; }
+        #page5 button { background: #568ecb; }
+
+        /* ==========================================
+           9. HALAMAN 6: VIDEO SPESIAL
+           ========================================== */
+        .video-box { width: 100%; }
+        video { width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.12); background: #000; }
+        
+        .text-video { text-align: left; width: 100%; background: rgba(255,255,255,0.75); padding: 12px; border-radius: 12px; }
+        .text-video h2 { font-size: 1.25rem; color: #2c445e; margin-bottom: 6px; }
+        .text-video p { font-size: 0.85rem; color: #4a6580; line-height: 1.5; }
+        #page6 button { background: #4a90e2; }
+
+        /* --- KEYFRAMES ANIMASI UTILITY --- */
+        @keyframes melayang { 50% { transform: translateY(-10px); } }
+
+        /* Styling tombol yang lebih estetik */
+        /* Tampilan estetik untuk Game */
+        
+
+        .game-title {
+            font-size: 22px;
+            color: #2c445e;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #game-container {
+        position: relative; 
+        width: 100%;
+        height: 220px; /* Diperbesar agar area gerak lebih luas */
+        display: flex;
+        flex-direction: column; /* Mengatur tombol agar menumpuk vertikal */
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #btnYes, #btnNo {
+        position: absolute; /* Tetap absolute agar bisa dipindah-pindah */
+        transition: all 0.3s ease;
+        padding: 12px 30px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+
+    /* Posisi awal statis sebelum mulai bergerak */
+    #btnYes {
+        top: 30px; /* Di atas */
+    }
+
+    #btnNo {
+        top: 100px; /* Di bawah */
+        background: #ffffff;
+        color: #ff7675;
+        border: 2px solid #ff7675;
+    }
+    </style>
+</head>
+<body>
+
+<!-- ELEMEN AUDIO -->
+<audio id="backsound" src="musik.mp3" loop></audio>
+
+<div class="phone-wrapper">
+
+    <!-- SCREEN 1: LOADING -->
+    <div class="screen show" id="loading">
+        <div class="content-body">
+            <div class="hearts">♡ ♡ ♡</div>
+            <div class="love">💙</div>
+            <h1>sebentar yaa ayangg...</h1>
+            <p id="loadText">aku lagi nyiapin sesuatu buat ayangg ♡</p>
+            <div class="bar"><div class="progress" id="progress"></div></div>
+            <p id="persen">0%</p>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: PASSWORD -->
+    <div class="screen" id="password">
+        <div class="content-body">
+            <div class="lock">🔐</div>
+            <h1>ini rahasia cill</h1>
+            <p>masukin passwordnya dulu yaa cill xD</p>
+            <div class="password-input-box">
+                <input type="password" id="pass" placeholder="password">
+                <button onclick="cekPassword()">buka ♡</button>
+            </div>
+            <p id="pesan"></p>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: HALAMAN AWAL (HOME) -->
+    <div class="screen" id="home">
+        <div class="content-body">
+            <div class="home-card">
+                <div class="home-gif">
+                    <img src="kiss.gif" alt="My Custom Kiss GIF">
+                </div>
+                <div class="home-text">
+                    <h1>aloo sayangg... ♡</h1>
+                    <p>Aku punya sesuatu kecil yang spesial buat ayangg. Semoga ayangg suka yaa! U^U</p>
+                </div>
+            </div>
+        </div>
+        <button onclick="pindahHalaman('page6')">Lanjut isi survey ♡</button>
+    </div>
+
+    <!-- SCREEN 8: PERMAINAN USIL -->
+    <!-- SCREEN PERMAINAN -->
+    <div class="screen" id="page6">
+        <div class="content-body">
+            <div style="background: rgba(255, 255, 255, 0.9); padding: 25px; border-radius: 20px; width: 90%; text-align: center;">
+                <div style="font-size: 50px; margin-bottom: 10px;">😊</div>
+                <h2 class="game-title">sebelum mulai, ayangg sudahh mandi belomm?</h2>
+                
+                <div id="game-container">
+                    <!-- Tombol YES sekarang juga gerak saat disentuh -->
+                    <button id="btnNo" onmouseover="gerakAcak()" onclick="gerakAcak()">sudahh dongg</button>
+                    <button id="btnYes" onclick="tampilkanPesan()">hehee belomm</button>
+                    <img id="fotoKecut" src="ayangg-senyum.jpg" style="display: none; width: 200px; height: 200px; border-radius: 15%; object-fit: cover; margin-top: 10px;" alt="Ayangg Mandi">
+                    
+                </div>
+                
+                <!-- Tulisan yang akan disembunyikan -->
+                <p id="teksPastiBelum" style="font-size: 13px; color: #4a6580; margin-top: 50px;">
+                    *pasti belum kan? 😌
+                </p>
+
+                <!-- Card Pesan -->
+                <div id="pesanKecut" style="display: none; margin-top: 15px; padding: 15px; background: #fff5f5; border-radius: 15px; border: 1px solid #ffcccc;">
+                    <p style="color: #489fc7; font-weight: 600;">Ihh pantesan kecutt, tercium sampe sini ayangg! xD </p>
+                </div>
+            </div>
+        </div>
+        <button id="btnLanjut" style="display: none; background: #5ba4e5;" onclick="pindahHalaman('page2')">Lanjut ke surat ♡</button>
+    </div>
+
+
+    <!-- SCREEN 4: SURAT ULANG TAHUN -->
+    <div class="screen" id="page2">
+        <div class="content-body">
+            <div class="envelope-card">
+                <h2>Happy Birthday ayangg 🎂💙</h2>
+                <p>Hari ini adalah hari yang paling spesial buat ayangg, dan jujur, hari ini juga jadi salah satu hari favorit aku tauu cill. Hari di mana seseorang yang sangat hebat, baik, dan super tulus dilahirkan ke bumi ini U^U.</p>
+                <p>Makasih banyak yaa ayangg, sudahh hadir di hidup aku, sudahh mau bertahan, dan bikin hari-hari aku yang biasa aja jadi jauh lebih berwarna dan penuh tawa sejak ada ayangg. Ayangg itu berharga banget buat aku, lebih dari yang bisa aku ucapin lewat kata-kata.</p>
+                <p>Di usia yang baru ini, doa aku semoga ayangg selalu dikasih kesehatan, kebahagiaan yang nggak pernah putus, lancar segala urusannya, dan didekatkan sama semua hal baik. Jangan pernah capek jadi orang baik yaa sayangg, dan inget kalau aku bakal selalu ada di sini buat nemenin dan support ayangg terus.</p>
+                <p>Sekali lagi, selamat ulang tahun bocill aku! uhubbukii ayangg moree moree ♡</p>
+            </div>
+        </div>
+        <button onclick="pindahHalaman('page3')">Lihat kenangan kita ♡</button>
+    </div>
+
+    <!-- SCREEN 5: AWAL CERITA KITA -->
+    <div class="screen" id="page3">
+        <div class="content-body">
+            <div class="screenshot-box">
+                <img src="screenshot-kita.jpg" alt="Awal Cerita Kita" onerror="this.src='https://placehold.co/350x200?text=Foto+Screenshot+Chat+Disini'">
+            </div>
+            <div class="text-story">
+                <h2>Awal mula cerita kita ♡</h2>
+                <p>semuanya berawal dari sebuah chat sederhana... mungkin waktu itu kita belum tahu kalau obrolan ini bakal jadi awal dari banyak cerita indah kita.</p>
+            </div>
+        </div>
+        <button onclick="pindahHalaman('page4')">lanjut ♡</button>
+    </div>
+
+    <!-- SCREEN 6: MOMEN SAAT BERTEMU (FIXED SLIDESHOW) -->
+    <div class="screen" id="page4">
+        <div class="content-body">
+            <div class="polaroid-wrapper">
+                <div class="polaroid-slideshow" id="slideshowBox">
+                    <img src="bertemu1.jpg" class="active" alt="Momen Bertemu 1" onerror="this.src='https://placehold.co/380x215?text=Polaroid+Bertemu+1'">
+                    <img src="bertemu2.jpg" alt="Momen Bertemu 2" onerror="this.src='https://placehold.co/380x215?text=Polaroid+Bertemu+2'">
+                    <img src="bertemu3.jpg" alt="Momen Bertemu 3" onerror="this.src='https://placehold.co/380x215?text=Polaroid+Bertemu+3'">
+                    <img src="bertemu4.jpg" alt="Momen Bertemu 4" onerror="this.src='https://placehold.co/380x215?text=Polaroid+Bertemu+4'">
+                </div>
+            </div>
+            <div class="text-momen1">
+                <h2>Dan sekarang kita bisa Bertemu ♡</h2>
+                <p>Ini adalah beberapa momen berharga yang paling bikin aku bahagia pas kita ketemu. Walaupun kalau dipikir2, momen pertemuan kita itu rasanya masih sedikit banget yaa ayangg TT huhuu...</p>
+            </div>
+        </div>
+        <button onclick="pindahHalaman('page5')">lanjut ♡</button>
+    </div>
+
+    <!-- SCREEN 7: MOMEN FAVORIT KITA (2 POTRET + 1 LANDSCAPE) -->
+    <div class="screen" id="page5">
+        <div class="content-body">
+            <div class="momen-fav-container">
+                <div class="grid-potret">
+                    <div class="polaroid-portrait">
+                        <img src="favorit-potret1.jpg" alt="Favorit Potret 1" onerror="this.src='https://placehold.co/150x200?text=Potret+1'">
+                        
+                    </div>
+                    <div class="polaroid-portrait">
+                        <img src="favorit-potret2.jpg" alt="Favorit Potret 2" onerror="this.src='https://placehold.co/150x200?text=Potret+2'">
+                        
+                    </div>
+                </div>
+                <div class="polaroid-landscape-single">
+                    <img src="favorit-landscape.jpg" alt="Favorit Landscape" onerror="this.src='https://placehold.co/350x196?text=Landscape+Penuh'">
+                    
+                </div>
+            </div>
+            <div class="text-momen2">
+                <h2>Momen favorit kuuu ♡</h2>
+                <p>Mungkin cuma momen sederhana, tapi bikin aku bersyukur banget punya ayangg di hidup aku 🥺💙 . tapi sayang sekali ayangg tidaa mau senyum disinii, kakuu bangett huhuu</p>
+            </div>
+        </div>
+        <button onclick="pindahHalaman('page-akhir')">Lihat pesan terakhir ♡</button>
+    </div>
+
+        <!-- SCREEN 9: PESAN TERAKHIR -->
+    <div class="screen" id="page-akhir">
+        <div class="content-body">
+            <div class="envelope-card">
+                <h2 style="text-align: center;">Untuk Ayangg ♡</h2>
+                <p style="text-align: center; font-weight: 600; color: #4a90e2;">Terima kasih sudahh menjadi bagian terindah dalam hidupku.</p>
+                <p>Ini adalah pesan terakhirku untuk hari ini. Semoga apa pun yang kita lalui nanti, kita selalu bisa tetap saling menguatkan, saling memahami, dan terus memilih satu sama lain setiap harinya.</p>
+                <p>Aku sayangg bangett sama ayangg. *I love you more than words can say!* n Happyy Birthdayy sayanggg 💙</p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+</div>
+
+<script>
+    const lagu = document.getElementById("backsound");
+    lagu.volume = 0.5;
+
+    // 1. Logika Loading Otomatis
+    let angka = 0;
+    let loading = setInterval(() => {
+        angka++;
+        document.getElementById("progress").style.width = angka + "%";
+        document.getElementById("persen").innerHTML = Math.min(angka, 100) + "%";
+
+        if (angka == 30) {
+            document.getElementById("loadText").innerHTML = "mengumpulkan kenangan kita ♡";
+        }
+        if (angka == 70) {
+            document.getElementById("loadText").innerHTML = "menyiapkan kejutan buat ayangg 💙";
+        }
+        if (angka >= 100) {
+            clearInterval(loading);
+            gantiMulus("loading", "password");
+        }
+    }, 40);
+
+    // 2. Logika Validasi Password
+    let salah = 0;
+    function cekPassword() {
+        let pass = document.getElementById("pass").value;
+        let pesan = document.getElementById("pesan");
+
+        if (pass == "ayangg kecutt") {
+            pesan.innerHTML = "✨ Yayyy ayangg betull ♡ ✨";
+            setTimeout(() => {
+                gantiMulus("password", "home");
+            }, 1500);
+        } else {
+            salah++;
+            if (salah == 1) { pesan.innerHTML = "salah ihh"; } 
+            else if (salah == 2) { pesan.innerHTML = "salah lagi cill TT"; } 
+            else if (salah == 3) { pesan.innerHTML = "ihh kok salah muluu TT"; } 
+            else { pesan.innerHTML = "ulang sampe betull yaa U^U"; }
+        }
+    }
+
+    // 3. Fungsi Navigasi Per-Halaman Murni Fade
+    function pindahHalaman(idTujuan) {
+        const aktifSekarang = document.querySelector('.screen.show');
+        if (aktifSekarang) {
+            gantiMulus(aktifSekarang.id, idTujuan);
+        }
+    }
+
+    function gantiMulus(idSekarang, idTujuan) {
+        const skr = document.getElementById(idSekarang);
+        const tjn = document.getElementById(idTujuan);
+        
+        skr.style.opacity = "0";
+        
+        if (idTujuan === "page4") {
+        lagu.volume = 0; // Mulai dari nol
+        lagu.play().then(() => {
+            fadeInMusik(0.5); // Fade-in ke volume 0.5 secara bertahap
+        }).catch(err => console.log("Autoplay musik butuh interaksi user."));
+        } else if (idTujuan === "page6") {
+            lagu.pause(); 
+        }
+        
+        setTimeout(() => {
+            skr.classList.remove('show');
+            tjn.classList.add('show');
+            // Reset posisi scroll ke atas setiap kali pindah halaman baru
+            tjn.scrollTop = 0;
+            setTimeout(() => {
+                tjn.style.opacity = "1";
+            }, 50);
+        }, 600);
+    }
+
+    // 4. Logika Otomatis Slideshow Foto Halaman 4 (JEDA TEPAT 4 DETIK / 4000ms)
+    let indexFoto = 0;
+    const semuaFoto = document.querySelectorAll('#slideshowBox img');
+    
+    setInterval(() => {
+        semuaFoto[indexFoto].classList.remove('active');
+        indexFoto = (indexFoto + 1) % semuaFoto.length;
+        semuaFoto[indexFoto].classList.add('active');
+    }, 4000); 
+
+    // Fungsi Game Usil
+    // Fungsi Game Usil yang sudah diperbaiki
+    function gerakAcak() {
+    const btnNo = document.getElementById('btnNo');
+    const container = document.getElementById('game-container');
+    
+    // Ambil ukuran kontainer
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    
+    // Ambil ukuran tombol itu sendiri agar tidak keluar batas
+    const btnWidth = btnNo.offsetWidth;
+    const btnHeight = btnNo.offsetHeight;
+    
+    // Hitung posisi acak dengan batasan agar tidak keluar area
+    // Kita kurangi container dengan ukuran tombol
+    let newX = Math.random() * (containerWidth - btnWidth);
+    let newY = Math.random() * (containerHeight - btnHeight);
+    
+    // Pastikan nilai tidak negatif
+    newX = Math.max(0, newX);
+    newY = Math.max(0, newY);
+
+    // Terapkan posisi baru
+    btnNo.style.position = 'absolute';
+    btnNo.style.left = newX + 'px';
+    btnNo.style.top = newY + 'px';
+}
+
+function tampilkanPesan() {
+    // Tampilkan card pesan
+    document.getElementById('pesanKecut').style.display = 'block';
+    
+    // Tampilkan tombol lanjut
+    document.getElementById('btnLanjut').style.display = 'block';
+    
+    // Tampilkan foto
+    document.getElementById('fotoKecut').style.display = 'block';
+    // Sembunyikan tulisan "pasti belum kan?"
+    document.getElementById('teksPastiBelum').style.display = 'none';
+    
+    // Sembunyikan tombol "hehee belomm" dan "sudahh dongg"
+    document.getElementById('btnNo').style.display = 'none';
+    document.getElementById('btnYes').style.display = 'none';
+}
+
+function fadeInMusik(targetVolume) {
+    const durasi = 8000; // Durasi fade-in dalam milidetik (2 detik)
+    const interval = 50;  // Kecepatan update volume
+    const langkah = targetVolume / (durasi / interval);
+
+    let volumeFade = setInterval(() => {
+        if (lagu.volume < targetVolume) {
+            // Gunakan Math.min agar tidak melebihi target
+            lagu.volume = Math.min(lagu.volume + langkah, targetVolume);
+        } else {
+            clearInterval(volumeFade);
+        }
+    }, interval);
+}
+</script>
+
+</body>
+</html>
